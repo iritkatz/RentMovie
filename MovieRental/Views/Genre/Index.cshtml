@@ -1,0 +1,39 @@
+﻿
+@model IEnumerable<MovieRental.Genre>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Genre</h2> 
+
+
+<a type="button"  href="@Url.Action("Create")">
+<span class="glyphicon glyphicon-plus"></span>
+    <span>Create New</span>
+   </a>
+
+<table class="table table-condensed table-hover">
+    <tr>
+<th>
+    @Html.DisplayNameFor(n=> n.Name)
+</th>
+    </tr>
+    @foreach( var item in Model)
+    {
+        <tr>
+            <td>
+               @Html.DisplayFor(n => item.Name)
+                </td>
+          
+            <td>
+               
+                @Html.ActionLink("Edit ", "Edit", new { id = item.id }, htmlAttributes: new { @class = "fa fa-fw fa-edit" }) |
+                @Html.ActionLink("Details ", "Details", new { id = item.id }, htmlAttributes: new { @class = "fa fa-fw fa-info" }) |
+                @Html.ActionLink("Delete ", "Delete", new { id = item.id }, htmlAttributes: new { @class = "fa fa-fw fa-trash-o" })
+            </td>
+
+
+        </tr>
+    }
+</table>

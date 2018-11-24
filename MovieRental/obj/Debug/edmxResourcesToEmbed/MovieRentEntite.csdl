@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MovieRentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Genre">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Movie">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Director" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Image" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Availbility" Type="Int32" Nullable="false" />
+    <Property Name="price" Type="Double" Nullable="false" />
+    <NavigationProperty Name="RentMovie" Relationship="Self.FK_MovieRent_Movie" FromRole="Movie" ToRole="RentMovie" />
+  </EntityType>
+  <EntityType Name="RentMovie">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="UserId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="MovieId" Type="Int32" Nullable="false" />
+    <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="RentalPrice" Type="Double" Nullable="false" />
+    <Property Name="Status" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Movie" Relationship="Self.FK_MovieRent_Movie" FromRole="RentMovie" ToRole="Movie" />
+    <NavigationProperty Name="User" Relationship="Self.FK_MovieRent_User" FromRole="RentMovie" ToRole="User" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="FirstName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="RentMovie" Relationship="Self.FK_MovieRent_User" FromRole="User" ToRole="RentMovie" />
+  </EntityType>
+  <Association Name="FK_MovieRent_Movie">
+    <End Role="Movie" Type="Self.Movie" Multiplicity="1" />
+    <End Role="RentMovie" Type="Self.RentMovie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Movie">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="RentMovie">
+        <PropertyRef Name="MovieId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MovieRent_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="RentMovie" Type="Self.RentMovie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="RentMovie">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MovieRententite" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Genre" EntityType="Self.Genre" />
+    <EntitySet Name="Movie" EntityType="Self.Movie" />
+    <EntitySet Name="RentMovie" EntityType="Self.RentMovie" />
+    <EntitySet Name="User" EntityType="Self.User" />
+    <AssociationSet Name="FK_MovieRent_Movie" Association="Self.FK_MovieRent_Movie">
+      <End Role="Movie" EntitySet="Movie" />
+      <End Role="RentMovie" EntitySet="RentMovie" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MovieRent_User" Association="Self.FK_MovieRent_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="RentMovie" EntitySet="RentMovie" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

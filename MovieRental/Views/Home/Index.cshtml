@@ -1,0 +1,56 @@
+﻿@model IEnumerable<MovieRental.viewModel.thumbnailboxViewModel>
+@*@model IEnumerable<MovieRental.Movie>*@
+
+
+@{
+    ViewBag.Title = "Home Page";
+}
+<br />
+<div class="row">
+ 
+
+</div>
+<br />
+
+<div cladd="row">
+
+   @foreach (var area in Model)
+   {
+       //  @Html.Partial("_ThimbnailArea",area);
+
+
+    <div class="row">
+        @if (area != null)
+        {
+            foreach (var thumbnail in area.Thumbnail)
+            {
+                <div class="col-xs-7 col-md-3">
+                    <div class="thumbnail">
+                        <div class="thumbanail-container">
+                            <div class="thumbanail-img-container">
+                                <a href="@thumbnail.Link"><img class="thumbanail-img" style="width:200px;height:200px" src="@thumbnail.Image" alt=""</a>
+                            </div>
+                        </div>
+
+                        <div class="caption">
+                            <h3><a href="@thumbnail.Link">@thumbnail.Title</a></h3>
+                            <p>@Html.Raw(thumbnail.Description)</p>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+            }
+
+        }
+
+
+
+    </div>
+
+
+   }
+</div>

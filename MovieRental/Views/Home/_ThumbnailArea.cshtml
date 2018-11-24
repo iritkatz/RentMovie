@@ -1,0 +1,35 @@
+﻿@model MovieRental.viewModel.thumbnailboxViewModel
+
+
+<div class="row">
+    @if (Model.Thumbnail != null)
+    {
+        foreach(var thumbnail in Model.Thumbnail)
+        {
+            <div class="col-xs-7 col-md-3">
+                <div class="thumbnail">
+                    <div class="thumbanail-container">
+                        <div class="thumbanail-img-container">                      
+          <a href="@thumbnail.Link">img class="thumbanail-img alt="" </a>
+                             
+</div>
+                    </div>
+
+                    <div class="caption">
+<h3><a href="@thumbnail.Link">@thumbnail.Title</a></h3>
+                        <p>@Html.Raw(thumbnail.Description)</p>
+                    </div>
+                </div>
+
+            </div>
+         
+
+
+
+        }
+
+    }
+
+
+
+</div>

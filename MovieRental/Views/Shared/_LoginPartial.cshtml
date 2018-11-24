@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNet.Identity
+@using MovieRental;
+
+
+@if (MovieRental.User.CurrentUserId != null)
+{
+    using (Html.BeginForm("LogOff", "home", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            @Html.ActionLink("Hello " + MovieRental.User.CurrentUserId +"!", "AboutAs", "Home", routeValues: null, htmlAttributes: new { title = "Manage" })
+        </li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+    </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Register", "Register", "home", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "home", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

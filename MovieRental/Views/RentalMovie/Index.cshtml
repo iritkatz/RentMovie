@@ -1,0 +1,92 @@
+﻿@model IEnumerable<MovieRental.RentMovie>
+
+
+
+<table class="table">
+    <tr>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.Movie.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Movie.price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+      
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.Movie.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EndDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Movie.price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        
+        <td>
+       
+         @if (item.Status == "Rented")
+         {
+
+             using (Html.BeginForm("details", "Movie", FormMethod.Post))
+             {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+                    <div class="form-group" hidden>
+                        <div class="col-md-10">
+                            <input type="hidden" value="@item.MovieId" type="text" id="PropertyName1" name="returnmovieid" class="form-control" />
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+
+
+                        <input type="submit" value="Return" class="btn btn-primary" />
+
+                    </div>
+                </div>
+             }
+
+
+         }
+         else
+         {
+
+         }
+
+
+
+
+        </td>
+    </tr>
+}
+
+</table>
